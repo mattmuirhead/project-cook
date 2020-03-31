@@ -1,9 +1,11 @@
 import React from 'react'
+import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 import styled, { ThemeProvider } from 'styled-components'
 import UserProvider from './providers/UserProvider'
 import Routes from './Routes'
 import theme from './theme'
+import store from './state'
 
 const AppContainer = styled.div`
   background-color: ${props => props.theme.background};
@@ -18,13 +20,15 @@ const AppContainer = styled.div`
 
 const App = () => (
   <ThemeProvider theme={theme}>
-    <UserProvider>
-      <AppContainer>
-        <Router>
-          <Routes />
-        </Router>
-      </AppContainer>
-    </UserProvider>
+    <Provider store={store}>
+      <UserProvider>
+        <AppContainer>
+          <Router>
+            <Routes />
+          </Router>
+        </AppContainer>
+      </UserProvider>
+    </Provider>
   </ThemeProvider>
 )
 

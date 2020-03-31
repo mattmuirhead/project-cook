@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { auth, generateUserDocument } from '../../Firebase/firebase'
+import { isLoading } from '../../state/Loading'
 import styled from 'styled-components'
 import Button from '../../components/atoms/Button'
 import TextInput from '../../components/molecules/TextInput'
@@ -26,6 +28,8 @@ const Login = ({ history }) => {
   const [lastName, setLastName] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const dispatch = useDispatch()
+  const loading = useSelector(state => state.loading)
 
   const onChangeHandler = event => {
     const { name, value } = event.target
@@ -51,38 +55,39 @@ const Login = ({ history }) => {
   }
 
   const handleClick = async () => {
+    dispatch(isLoading(true))
     if (isLogin) {
       auth.signInWithEmailAndPassword(email, password)
       .then(() => {
         history.push('/dashboard')
+        dispatch(isLoading(false))
       })
       .catch(error => {
         console.log('Error signing in with password and email', error)
+        dispatch(isLoading(false))
       })
     } else {
       try {
         const {user} = await auth.createUserWithEmailAndPassword(email, password)
         generateUserDocument(user, {firstName, lastName})
-
+        dispatch(isLoading(false))
       }
       catch(error) {
         console.log('Error Signing up with email and password')
+        dispatch(isLoading(false))
       }
-
+      
       setFirstName('')
       setLastName('')
       setPassword('')
       setConfirmPassword('')
       setIsLogin(true)
     }
-
-
   }
 
   return (
     <LoginPage>
       <LoginCard>
-
         <TextInput type="email" name="emailAddress" placeholder="Email Address" value={email} onChange={event => onChangeHandler(event)}/>
         {!isLogin && <TextInput type="text" name="firstName" placeholder="First Name" value={firstName} onChange={event => onChangeHandler(event)}/>}
         {!isLogin && <TextInput type="text" name="lastName" placeholder="Last Name" value={lastName} onChange={event => onChangeHandler(event)}/>}
