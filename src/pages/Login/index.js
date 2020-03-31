@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { auth, generateUserDocument } from '../../Firebase/firebase'
 import { isLoading } from '../../state/Loading'
 import styled from 'styled-components'
@@ -29,7 +29,6 @@ const Login = ({ history }) => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const dispatch = useDispatch()
-  const loading = useSelector(state => state.loading)
 
   const onChangeHandler = event => {
     const { name, value } = event.target
