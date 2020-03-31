@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
+import styled, { ThemeProvider } from 'styled-components'
+import UserProvider from './providers/UserProvider'
+import Routes from './Routes'
+import theme from './theme'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const AppContainer = styled.div`
+  background-color: ${props => props.theme.background};
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+`
 
-export default App;
+const App = () => (
+  <ThemeProvider theme={theme}>
+    <UserProvider>
+      <AppContainer>
+        <Router>
+          <Routes />
+        </Router>
+      </AppContainer>
+    </UserProvider>
+  </ThemeProvider>
+)
+
+export default App
