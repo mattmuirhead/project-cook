@@ -1,6 +1,6 @@
 const colors = {
   offWhite: '#f1f3f6',
-  grey: 'grey',
+  grey: '#cccccc',
   black: '#444444',
   white: 'white',
   red: '#ff0844',
@@ -28,6 +28,7 @@ const buttons = {
     size: fontSizes.heading1,
     color: colors.red,
     gradient: colors.gradient,
+    disabledColor: colors.grey,
   },
   plain: {
     size: fontSizes.label,
@@ -46,6 +47,11 @@ const theme = {
   },
   input: {
     background: colors.offWhite,
+  },
+  loader: {
+    background: colors.offWhite,
+    dot: colors.background,
+    gradient: colors.gradient,
   },
   buttons,
   fontSizes,

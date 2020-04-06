@@ -6,6 +6,7 @@ import UserProvider from './providers/UserProvider'
 import Routes from './Routes'
 import theme from './theme'
 import store from './state'
+import Loader from './components/atoms/Loader'
 
 const AppContainer = styled.div`
   background-color: ${props => props.theme.background};
@@ -23,6 +24,7 @@ const App = () => (
     <Provider store={store}>
       <UserProvider>
         <AppContainer>
+          <Loader />
           <Router>
             <Routes />
           </Router>

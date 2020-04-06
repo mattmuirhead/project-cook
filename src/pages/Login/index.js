@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { auth, generateUserDocument } from '../../Firebase/firebase'
 import { isLoading } from '../../state/Loading'
@@ -23,12 +23,25 @@ const LoginCard = styled.div`
 
 const Login = ({ history }) => {
   const [isLogin, setIsLogin] = useState(true)
+  const [isValid, setIsValid] = useState(false)
   const [email, setEmail] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const dispatch = useDispatch()
+
+  const isEmail = email => {
+    return email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)
+  }
+
+  useEffect(() => {
+    if (isLogin) {
+      setIsValid(email && isEmail(email) && password)
+    } else {
+      setIsValid(email && isEmail(email) && password && firstName && password === confirmPassword)
+    }
+  }, [confirmPassword, email, firstName, isLogin, password])
 
   const onChangeHandler = event => {
     const { name, value } = event.target
@@ -74,7 +87,7 @@ const Login = ({ history }) => {
       catch(error) {
         console.log('Error Signing up with email and password')
         dispatch(isLoading(false))
-      }
+      }  
       
       setFirstName('')
       setLastName('')
@@ -93,7 +106,7 @@ const Login = ({ history }) => {
         <TextInput type="password" name="password" placeholder="Password" value={password} onChange={event => onChangeHandler(event)}/>
         {!isLogin && <TextInput type="password" name="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={event => onChangeHandler(event)}/>}
 
-        <Button type="primary" onClick={handleClick}>
+        <Button type="primary" onClick={handleClick} disabled={!isValid}>
           {isLogin ? 'Login' : 'Sign up'}
         </Button>
 
