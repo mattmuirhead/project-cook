@@ -4,6 +4,7 @@ const colors = {
   black: '#444444',
   white: 'white',
   red: '#ff0844',
+  green: '#41a941',
   gradient: 'linear-gradient(to top, #ff0844 0%, #ffb199 100%)',
 }
 
@@ -36,11 +37,29 @@ const buttons = {
   }
 }
 
+const notifications = {
+  error: {
+    background: colors.red,
+    color: colors.offWhite,
+  },
+  success: {
+    background: colors.green,
+    color: colors.offWhite,
+  },
+}
+
+const iconSizes = {
+  small: '16px',
+  medium: '20px',
+  large: '24px',
+}
+
 const theme = {
   background: colors.offWhite,
   text: {
     label: colors.grey,
     body: colors.black,
+    invertBody: colors.offWhite,
   },
   card: {
     background: colors.offWhite,
@@ -57,6 +76,8 @@ const theme = {
   fontSizes,
   radii,
   shadows,
+  notifications,
+  iconSizes,
 }
 
 

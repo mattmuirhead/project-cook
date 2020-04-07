@@ -4,6 +4,7 @@ import { auth, generateUserDocument } from '../../Firebase/firebase'
 import { isLoading } from '../../state/Loading'
 import styled from 'styled-components'
 import Button from '../../components/atoms/Button'
+import Notification from '../../components/atoms/Notification'
 import TextInput from '../../components/molecules/TextInput'
 
 const LoginPage = styled.div`
@@ -24,6 +25,7 @@ const LoginCard = styled.div`
 const Login = ({ history }) => {
   const [isLogin, setIsLogin] = useState(true)
   const [isValid, setIsValid] = useState(false)
+  const [message, setMessage] = useState('')
   const [email, setEmail] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -71,11 +73,18 @@ const Login = ({ history }) => {
     if (isLogin) {
       auth.signInWithEmailAndPassword(email, password)
       .then(() => {
+        setMessage({
+          body: 'Success!',
+          type: 'success',
+        })
         history.push('/dashboard')
         dispatch(isLoading(false))
       })
-      .catch(error => {
-        console.log('Error signing in with password and email', error)
+      .catch(() => {
+        setMessage({
+          body: 'There was an issue logging you in. Make sure your email and password is correct.',
+          type: 'error'
+        })
         dispatch(isLoading(false))
       })
     } else {
@@ -83,22 +92,33 @@ const Login = ({ history }) => {
         const {user} = await auth.createUserWithEmailAndPassword(email, password)
         generateUserDocument(user, {firstName, lastName})
         dispatch(isLoading(false))
+        setMessage({
+          body: 'You have successfully created an account',
+          type: 'success',
+        })
+        setFirstName('')
+        setLastName('')
+        setPassword('')
+        setConfirmPassword('')
+        setIsLogin(true)
       }
       catch(error) {
-        console.log('Error Signing up with email and password')
+        setMessage({
+          body: error.message,
+          type: 'error'
+        })
         dispatch(isLoading(false))
       }  
-      
-      setFirstName('')
-      setLastName('')
-      setPassword('')
-      setConfirmPassword('')
-      setIsLogin(true)
     }
   }
 
   return (
     <LoginPage>
+      {message &&
+        <Notification type={message.type} onClick={() => setMessage('')}>
+          {message.body}
+        </Notification>
+      }
       <LoginCard>
         <TextInput type="email" name="emailAddress" placeholder="Email Address" value={email} onChange={event => onChangeHandler(event)}/>
         {!isLogin && <TextInput type="text" name="firstName" placeholder="First Name" value={firstName} onChange={event => onChangeHandler(event)}/>}
