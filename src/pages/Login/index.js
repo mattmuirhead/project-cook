@@ -47,7 +47,6 @@ const Login = ({ history }) => {
 
   const onChangeHandler = event => {
     const { name, value } = event.target
-    
     switch (name) {
       case 'emailAddress':
         setEmail(value)
@@ -71,45 +70,52 @@ const Login = ({ history }) => {
 
   const handleClick = async () => {
     dispatch(isLoading(true))
-    if (isLogin) {
-      auth.signInWithEmailAndPassword(email, password)
-      .then(() => {
-        setMessage({
-          body: 'Success!',
-          type: 'success',
+    if (isValid) {
+      if (isLogin) {
+        auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          setMessage({
+            body: 'Success!',
+            type: 'success',
+          })
+          history.push('/dashboard')
+          dispatch(isLoading(false))
         })
-        history.push('/dashboard')
-        dispatch(isLoading(false))
-      })
-      .catch(() => {
-        setMessage({
-          body: 'There was an issue logging you in. Make sure your email and password is correct.',
-          type: 'error'
+        .catch(() => {
+          setMessage({
+            body: 'There was an issue logging you in. Make sure your email and password is correct.',
+            type: 'error'
+          })
+          dispatch(isLoading(false))
         })
-        dispatch(isLoading(false))
-      })
-    } else {
-      try {
-        const {user} = await auth.createUserWithEmailAndPassword(email, password)
-        generateUserDocument(user, {firstName, lastName})
-        dispatch(isLoading(false))
-        setMessage({
-          body: 'You have successfully created an account',
-          type: 'success',
-        })
-        setFirstName('')
-        setLastName('')
-        setPassword('')
-        setConfirmPassword('')
-        setIsLogin(true)
+      } else {
+        try {
+          const {user} = await auth.createUserWithEmailAndPassword(email, password)
+          generateUserDocument(user, {firstName, lastName})
+          dispatch(isLoading(false))
+          setMessage({
+            body: 'You have successfully created an account',
+            type: 'success',
+          })
+          setFirstName('')
+          setLastName('')
+          setPassword('')
+          setConfirmPassword('')
+          setIsLogin(true)
+        }
+        catch(error) {
+          setMessage({
+            body: error.message,
+            type: 'error'
+          })
+          dispatch(isLoading(false))
+        }  
       }
-      catch(error) {
-        setMessage({
-          body: error.message,
-          type: 'error'
-        })
-        dispatch(isLoading(false))
-      }  
+    } else {
+      setMessage({
+        body: 'There was an issue please try again',
+        type: 'error'
+      })
     }
   }
 
