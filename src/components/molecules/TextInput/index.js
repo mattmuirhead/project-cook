@@ -25,10 +25,10 @@ const Input = styled.input`
   }
 `
 
-const TextInput = ({ type, placeholder, name, onChange }) => {
+const TextInput = ({ type, placeholder, name, onChange, ...otherProps }) => {
   return (
     <InputWrapper>
-      <Input type={type} name={name} placeholder={placeholder} onChange={onChange}/>
+      <Input type={type} name={name} placeholder={placeholder} onChange={onChange} {...otherProps}/>
     </InputWrapper>
   )
 }

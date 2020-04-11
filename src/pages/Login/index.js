@@ -47,6 +47,7 @@ const Login = ({ history }) => {
 
   const onChangeHandler = event => {
     const { name, value } = event.target
+    
     switch (name) {
       case 'emailAddress':
         setEmail(value)
@@ -112,6 +113,10 @@ const Login = ({ history }) => {
     }
   }
 
+  const handleKeyPress = (e) => {
+    e.key === 'Enter' && handleClick()
+  }
+
   return (
     <LoginPage>
       {message &&
@@ -123,8 +128,8 @@ const Login = ({ history }) => {
         <TextInput type="email" name="emailAddress" placeholder="Email Address" value={email} onChange={event => onChangeHandler(event)}/>
         {!isLogin && <TextInput type="text" name="firstName" placeholder="First Name" value={firstName} onChange={event => onChangeHandler(event)}/>}
         {!isLogin && <TextInput type="text" name="lastName" placeholder="Last Name" value={lastName} onChange={event => onChangeHandler(event)}/>}
-        <TextInput type="password" name="password" placeholder="Password" value={password} onChange={event => onChangeHandler(event)}/>
-        {!isLogin && <TextInput type="password" name="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={event => onChangeHandler(event)}/>}
+        <TextInput type="password" name="password" placeholder="Password" value={password} onChange={event => onChangeHandler(event)} onKeyPress={e => isLogin && handleKeyPress(e) }/>
+        {!isLogin && <TextInput type="password" name="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={event => onChangeHandler(event)} onKeyPress={e => !isLogin && handleKeyPress(e) }/>}
 
         <Button type="primary" onClick={handleClick} disabled={!isValid}>
           {isLogin ? 'Login' : 'Sign up'}
