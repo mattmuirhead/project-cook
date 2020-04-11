@@ -2,25 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { auth, generateUserDocument } from '../../Firebase/firebase'
 import { isLoading } from '../../state/Loading'
-import styled from 'styled-components'
 import Button from '../../components/atoms/Button'
 import Notification from '../../components/atoms/Notification'
 import TextInput from '../../components/molecules/TextInput'
-
-const LoginPage = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-`
-
-const LoginCard = styled.div`
-  width: 100%;
-  max-width: 300px;
-`
+import { LoginCard, LoginPage } from './style'
+import { isEmail } from '../../helpers'
 
 const Login = ({ history }) => {
   const [isLogin, setIsLogin] = useState(true)
@@ -32,10 +18,6 @@ const Login = ({ history }) => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const dispatch = useDispatch()
-
-  const isEmail = email => {
-    return email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)
-  }
 
   useEffect(() => {
     if (isLogin) {
