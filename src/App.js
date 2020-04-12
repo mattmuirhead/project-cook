@@ -22,14 +22,14 @@ const AppContainer = styled.div`
 const App = () => (
   <ThemeProvider theme={theme}>
     <Provider store={store}>
-      <UserProvider>
-        <AppContainer>
+      <AppContainer>
+        <Router>
           <Loader />
-          <Router>
+          <UserProvider>
             <Routes />
-          </Router>
-        </AppContainer>
-      </UserProvider>
+          </UserProvider>
+        </Router>
+      </AppContainer>
     </Provider>
   </ThemeProvider>
 )

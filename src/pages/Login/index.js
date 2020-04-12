@@ -60,7 +60,7 @@ const Login = ({ history }) => {
             body: 'Success!',
             type: 'success',
           })
-          history.push('/dashboard')
+          history.push('/my-recipes')
           dispatch(isLoading(false))
         })
         .catch(() => {
@@ -119,7 +119,7 @@ const Login = ({ history }) => {
         <TextInput type="password" name="password" placeholder="Password" value={password} onChange={event => onChangeHandler(event)} onKeyPress={e => isLogin && handleKeyPress(e) }/>
         {!isLogin && <TextInput type="password" name="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={event => onChangeHandler(event)} onKeyPress={e => !isLogin && handleKeyPress(e) }/>}
 
-        <Button type="primary" onClick={handleClick} disabled={!isValid}>
+        <Button type="primary" onClick={handleClick} modifier={!isValid && 'disabled'}>
           {isLogin ? 'Login' : 'Sign up'}
         </Button>
 

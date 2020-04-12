@@ -29,7 +29,14 @@ const buttons = {
     size: fontSizes.heading1,
     color: colors.red,
     gradient: colors.gradient,
-    disabledColor: colors.grey,
+    disabled: colors.grey,
+  },
+  secondary: {
+    size: fontSizes.heading1,
+    color: colors.black,
+    gradient: colors.gradient,
+    disabled: colors.grey,
+    active: colors.red,
   },
   plain: {
     size: fontSizes.label,
@@ -52,6 +59,7 @@ const iconSizes = {
   small: '16px',
   medium: '20px',
   large: '24px',
+  xxl: '40px',
 }
 
 const theme = {

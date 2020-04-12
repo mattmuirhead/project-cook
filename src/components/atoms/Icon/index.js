@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import icons from './icons'
 import styled from 'styled-components'
 
@@ -23,5 +24,13 @@ const Icon = ({ name, ...otherProps }) => {
     </svg>
   </IconWrapper>
 )}
+
+Icon.propTypes = {
+  size: PropTypes.string,
+}
+
+Icon.defaultProps = {
+  size: 'small',
+}
 
 export default Icon
