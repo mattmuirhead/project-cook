@@ -35,6 +35,7 @@ const AppNavigation = () => {
     <NavWrapper>
       {items && items.map(item => 
         <Button 
+          key={item.iconName}
           onClick={() => handleClick(item.url)} 
           modifier={location.pathname === item.url && 'active'} 
           type="secondary">

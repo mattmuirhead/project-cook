@@ -22,8 +22,8 @@ const Icon = ({ name, ...otherProps }) => {
     <svg title={icon.title} viewBox={icon.viewBox}>
       <defs>
         <linearGradient id='gradient' x1='1' y1='1'>
-          <stop stop-color='#ff0844'/>
-          <stop offset='1' stop-color='#ffb199'/>
+          <stop stopColor='#ff0844'/>
+          <stop offset='1' stopColor='#ffb199'/>
         </linearGradient>
       </defs>
       {icon.markup()}
