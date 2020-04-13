@@ -38,7 +38,10 @@ const AppNavigation = () => {
           onClick={() => handleClick(item.url)} 
           modifier={location.pathname === item.url && 'active'} 
           type="secondary">
-          <Icon name={item.iconName} size={item.iconSize}/>
+          <Icon 
+            name={item.iconName} 
+            size={item.iconSize} 
+            gradient={location.pathname === item.url}/>
         </Button>
       )}
     </NavWrapper>

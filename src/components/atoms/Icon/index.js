@@ -9,7 +9,7 @@ const IconWrapper = styled.div`
   ${props => props.clickable && 'cursor: pointer;'}
   
   svg {
-    fill: ${props => props.theme.text[props.color]};
+    fill: ${props => props.gradient && 'url(#gradient)'} ${props => props.theme.text[props.color]};
   }
 `
 
@@ -20,6 +20,12 @@ const Icon = ({ name, ...otherProps }) => {
   return (
   <IconWrapper {...otherProps}>
     <svg title={icon.title} viewBox={icon.viewBox}>
+      <defs>
+        <linearGradient id='gradient' x1='1' y1='1'>
+          <stop stop-color='#ff0844'/>
+          <stop offset='1' stop-color='#ffb199'/>
+        </linearGradient>
+      </defs>
       {icon.markup()}
     </svg>
   </IconWrapper>
