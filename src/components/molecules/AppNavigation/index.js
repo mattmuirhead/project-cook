@@ -17,19 +17,13 @@ const NavWrapper = styled.div`
   }
 `
 
-const AppNavigation = () => {
+const AppNavigation = ({ items }) => {
   const history = useHistory()
   const location = useLocation()
 
   const handleClick = url => {
     history.push(url)
   }
-
-  const items = [
-    { iconName: 'recipes', iconSize: 'large', url: '/my-recipes'},
-    { iconName: 'add', iconSize: 'xxl', url: '/add-recipe'},
-    { iconName: 'search', iconSize: 'large', url: '/search-recipes'},
-  ]
 
   return (
     <NavWrapper>

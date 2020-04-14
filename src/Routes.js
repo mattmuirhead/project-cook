@@ -9,10 +9,15 @@ import AppNavigation from './components/molecules/AppNavigation'
 
 const Routes = () => {
   const user = useContext(UserContext)
+  const items = [
+    { iconName: 'recipes', iconSize: 'large', url: '/my-recipes'},
+    { iconName: 'add', iconSize: 'xxl', url: '/add-recipe'},
+    { iconName: 'search', iconSize: 'large', url: '/search-recipes'},
+  ]
 
   return (
     <>
-      {user && <AppNavigation />}
+      {user && <AppNavigation items={items} />}
       <Switch>
         <Route path="/my-recipes" component={MyRecipes}/>
         <Route path="/add-recipe" component={AddRecipe}/>
