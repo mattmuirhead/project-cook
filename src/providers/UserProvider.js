@@ -11,7 +11,12 @@ const UserProvider = ({children}) => {
   useEffect(() => {
     auth.onAuthStateChanged(async (userAuth) => {
       const user = await generateUserDocument(userAuth)
-      user ? setUser(user) : history.replace('/')
+      if (user) {
+        setUser(user)
+      } else {
+        setUser(null)
+        history.replace('/')
+      } 
     })
   }, [history])
 

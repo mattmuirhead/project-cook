@@ -1,17 +1,15 @@
 import React, { useContext } from 'react'
-import { useHistory } from 'react-router-dom'
 import { UserContext } from '../../providers/UserProvider'
 import { auth } from '../../Firebase/firebase'
 
 const MyRecipes = () => {
   const user = useContext(UserContext)
-  const history = useHistory()
 
   return (
     <>
       <div>Hi { user && user.firstName }</div>
       <div>My Recipes</div>
-      <div onClick={() => auth.signOut().then(() => { history.push('/') })}>Logout</div>
+      <div onClick={() => auth.signOut()}>Logout</div>
     </>
   )
 }
