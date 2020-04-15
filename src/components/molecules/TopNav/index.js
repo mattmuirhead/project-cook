@@ -18,7 +18,7 @@ const NavButton = styled(Button)`
   width: initial;
 `
 
-const SecondaryNavigation = ({ items }) => {
+const TopNav = ({ items }) => {
   const history = useHistory()
   const location = useLocation()
 
@@ -44,4 +44,4 @@ const SecondaryNavigation = ({ items }) => {
   )
 }
 
-export default SecondaryNavigation
+export default TopNav

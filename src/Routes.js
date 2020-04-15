@@ -5,8 +5,9 @@ import Login from './pages/Login'
 import MyRecipes from './pages/MyRecipes'
 import AddRecipe from './pages/AddRecipe'
 import SearchRecipes from './pages/SearchRecipes'
+import Settings from './pages/Settings'
 import AppNavigation from './components/molecules/AppNavigation'
-import SecondaryNavigation from './components/molecules/SecondaryNavigation'
+import TopNav from './components/molecules/TopNav'
 
 const Routes = () => {
   const user = useContext(UserContext)
@@ -18,7 +19,7 @@ const Routes = () => {
   ]
   const secondNavItems = [
     { iconName: 'back', onClick: () => history.goBack()},
-    { iconName: 'settings', url: '/my-settings'},
+    { iconName: 'settings', url: '/settings'},
   ]
 
   return (
@@ -26,13 +27,14 @@ const Routes = () => {
       {user && (
         <>
           <AppNavigation items={navItems} />
-          <SecondaryNavigation items={secondNavItems} />
+          <TopNav items={secondNavItems} />
         </>
       )}
       <Switch>
         <Route path="/my-recipes" component={MyRecipes}/>
         <Route path="/add-recipe" component={AddRecipe}/>
         <Route path="/search-recipes" component={SearchRecipes}/>
+        <Route path="/settings" component={Settings}/>
         <Route path="/" component={Login}/>
       </Switch>
     </>
