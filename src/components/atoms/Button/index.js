@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const ButtonWrapper = styled.button`
   border: 0;
-  background-color: ${props => props.theme.background};
+  background-color: ${props => props.type === 'plain' ? 'transparent' : props.theme.background};
   border-radius: ${props => props.theme.radii.input};
   text-align: center;
   padding: 10px;

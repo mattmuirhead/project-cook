@@ -1,23 +1,34 @@
 import React, { useContext } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, useHistory } from 'react-router-dom'
 import { UserContext } from './providers/UserProvider'
 import Login from './pages/Login'
 import MyRecipes from './pages/MyRecipes'
 import AddRecipe from './pages/AddRecipe'
 import SearchRecipes from './pages/SearchRecipes'
 import AppNavigation from './components/molecules/AppNavigation'
+import SecondaryNavigation from './components/molecules/SecondaryNavigation'
 
 const Routes = () => {
   const user = useContext(UserContext)
-  const items = [
+  let history = useHistory()
+  const navItems = [
     { iconName: 'recipes', iconSize: 'large', url: '/my-recipes'},
     { iconName: 'add', iconSize: 'xxl', url: '/add-recipe'},
     { iconName: 'search', iconSize: 'large', url: '/search-recipes'},
   ]
+  const secondNavItems = [
+    { iconName: 'back', onClick: () => history.goBack()},
+    { iconName: 'settings', url: '/my-settings'},
+  ]
 
   return (
     <>
-      {user && <AppNavigation items={items} />}
+      {user && (
+        <>
+          <AppNavigation items={navItems} />
+          <SecondaryNavigation items={secondNavItems} />
+        </>
+      )}
       <Switch>
         <Route path="/my-recipes" component={MyRecipes}/>
         <Route path="/add-recipe" component={AddRecipe}/>
